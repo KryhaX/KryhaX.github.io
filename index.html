@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krystian Wierciak | DevOps Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #1a1a2e;
+            --purple: #a855f7;
+            --purple-light: #c084fc;
+            --cyan: #06b6d4;
+            --text: #e5e7eb;
+            --text-dim: #9ca3af;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                linear-gradient(90deg, rgba(168,85,247,.03) 1px, transparent 1px),
+                linear-gradient(rgba(168,85,247,.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: grid 20s linear infinite;
+        }
+
+        @keyframes grid {
+            to { transform: translate(50px, 50px); }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .3;
+            z-index: -1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--purple);
+            top: -200px;
+            right: -200px;
+        }
+
+        .orb2 {
+            width: 300px;
+            height: 300px;
+            background: var(--cyan);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26,26,46,.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(168,85,247,.2);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: .3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--purple);
+            transition: .3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-btn {
+            background: rgba(168,85,247,.1);
+            border: 1px solid var(--purple);
+            padding: .5rem 1rem;
+            border-radius: 20px;
+            color: var(--purple-light);
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .lang-btn:hover {
+            background: var(--purple);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 6rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--purple-light);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .profile-pic {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: 3px solid var(--purple);
+            box-shadow: 0 0 50px rgba(168,85,247,.5);
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            to { box-shadow: 0 0 80px rgba(168,85,247,.8); }
+        }
+
+        .btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--purple);
+            color: white;
+            border: 2px solid var(--purple);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            box-shadow: 0 0 30px rgba(168,85,247,.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--purple-light);
+            border: 2px solid var(--purple);
+        }
+
+        .btn-secondary:hover {
+            background: var(--purple);
+            color: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--purple), var(--cyan));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid rgba(168,85,247,.2);
+            transition: .3s;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 30px rgba(168,85,247,.3);
+            transform: translateX(10px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 15px;
+            height: 15px;
+            background: var(--purple);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(168,85,247,.8);
+        }
+
+        .date {
+            color: var(--cyan);
+            font-weight: bold;
+            margin-bottom: .5rem;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            color: var(--purple-light);
+            margin-bottom: .5rem;
+        }
+
+        .company {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item ul {
+            color: var(--text-dim);
+            line-height: 1.6;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item li {
+            margin-bottom: .5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(168,85,247,.2);
+            transition: .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(168,85,247,.1), rgba(6,182,212,.1));
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 40px rgba(168,85,247,.3);
+            transform: translateY(-10px);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--purple-light);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: rgba(168,85,247,.2);
+            color: var(--purple-light);
+            padding: .3rem .8rem;
+            border-radius: 15px;
+            font-size: .85rem;
+        }
+
+        .link {
+            color: var(--cyan);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            transition: .3s;
+        }
+
+        .link:hover {
+            color: var(--purple-light);
+        }
+
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(168,85,247,.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-title {
+            color: var(--purple-light);
+            font-size: 1.1rem;
+            margin-bottom: .5rem;
+        }
+
+        .cert-issuer {
+            color: var(--text-dim);
+            font-size: .9rem;
+            margin-bottom: .5rem;
+        }
+
+        .cert-date {
+            color: var(--cyan);
+            font-size: .85rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(168,85,247,.2);
+            transition: .3s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 30px rgba(168,85,247,.3);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--purple);
+        }
+
+        .contact-card h3 {
+            color: var(--purple-light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--purple-light);
+        }
+
+        .cv-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cv-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(168,85,247,.2);
+            text-align: center;
+            min-width: 250px;
+            transition: .3s;
+        }
+
+        .cv-card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 40px rgba(168,85,247,.3);
+            transform: scale(1.05);
+        }
+
+        .cv-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--purple);
+        }
+
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid rgba(168,85,247,.2);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-img {
+                order: -1;
+            }
+            .profile-pic {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .btns {
+                justify-content: center;
+            }
+            .nav-links {
+                display: none;
+            }
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <nav>
+        <div class="container">
+            <div class="logo">KW_DevOps</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="lang-btn" onclick="toggleLang()">PL / EN</button>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Krystian Wierciak</h1>
+                    <div class="subtitle">
+                        <span class="en">DevOps Engineer | NOC Specialist</span>
+                        <span class="pl hidden">Inżynier DevOps | Specjalista NOC</span>
+                    </div>
+                    <p class="en">Specializing in technical support, system monitoring, and NOC operations in 24/7 environments. Experienced in log analysis, incident triage, collaboration with QA, DevOps, and TechOps teams. Working with Linux, AWS, Python, and automation/monitoring tools.</p>
+                    <p class="pl hidden">Specjalizuję się w wsparciu technicznym, monitoringu systemów oraz operacjach NOC w środowiskach 24/7. Posiadam doświadczenie w analizie logów i metryk, triage'u incydentów oraz współpracy z zespołami QA, DevOps i TechOps.</p>
+                    <div class="btns">
+                        <a href="#contact" class="btn btn-primary">
+                            <span class="en">Get In Touch</span>
+                            <span class="pl hidden">Kontakt</span>
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <span class="en">View Projects</span>
+                            <span class="pl hidden">Zobacz Projekty</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-img">
+                    <img src="https://avatars.githubusercontent.com/u/77780238?v=4" alt="Krystian Wierciak" class="profile-pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Experience</span>
+                <span class="pl hidden">Doświadczenie</span>
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">06.2025 - Present</div>
+                    <div class="job-title">
+                        <span class="en">Senior Support Engineer</span>
+                        <span class="pl hidden">Starszy Inżynier Wsparcia</span>
+                    </div>
+                    <div class="company">Stefanini EMEA</div>
+                    <ul class="en">
+                        <li>Providing comprehensive technical support for hardware, software, mobile devices, and network connectivity</li>
+                        <li>Diagnosing and resolving incidents to minimize downtime</li>
+                        <li>Managing tickets in ticketing system with detailed documentation</li>
+                        <li>Creating and updating knowledge base articles</li>
+                        <li>Supporting onboarding and training of new employees</li>
+                        <li>Working in shift system (24/7) enabling collaboration with international teams</li>
+                    </ul>
+                    <ul class="pl hidden">
+                        <li>Świadczenie kompleksowego wsparcia technicznego dla sprzętu, oprogramowania, urządzeń mobilnych oraz łączności sieciowej</li>
+                        <li>Diagnozowanie i szybkie rozwiązywanie zgłoszeń w celu minimalizacji przestojów</li>
+                        <li>Rejestrowanie i obsługa incydentów w systemie ticketowym z dokładną dokumentacją</li>
+                        <li>Tworzenie i aktualizowanie artykułów bazy wiedzy</li>
+                        <li>Wspieranie procesu onboardingu i szkolenia nowych pracowników</li>
+                        <li>Praca w systemie zmianowym (24/7) umożliwiająca współpracę z zespołami międzynarodowymi</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">08.2024 - 01.2025</div>
+                    <div class="job-title">NOC Engineer</div>
+                    <div class="company">Sperasoft</div>
+                    <ul class="en">
+                        <li>Proactive 24/7 monitoring of online games and related systems</li>
+                        <li>Log analysis, metrics, and performance indicators</li>
+                        <li>Identifying, prioritizing, reporting, and tracking issues</li>
+                        <li>Problem triage and providing critical information to on-call teams</li>
+                        <li>Collaboration with production, QA, developers, DevOps, TechOps teams</li>
+                        <li>Creating and maintaining process documentation (Jira, Confluence, NOC KB)</li>
+                        <li>Deploying patches and builds, conducting post-deployment smoke testing</li>
+                    </ul>
+                    <ul class="pl hidden">
+                        <li>Proaktywne monitorowanie gier online i systemów 24/7</li>
+                        <li>Analiza logów, metryk i wskaźników wydajności</li>
+                        <li>Identyfikacja, priorytetyzacja, raportowanie i śledzenie problemów</li>
+                        <li>Triage problemów i przekazywanie krytycznych informacji zespołom on-call</li>
+                        <li>Współpraca z zespołami produkcji, QA, programistami, DevOps, TechOps</li>
+                        <li>Tworzenie i utrzymywanie dokumentacji procesowej (Jira, Confluence, NOC KB)</li>
+                        <li>Wdrażanie patchy i buildów oraz wykonywanie testów smoke po wdrożeniu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Featured Projects</span>
+                <span class="pl hidden">Wyróżnione Projekty</span>
+            </h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🔔</div>
+                    <div class="card-title">ServerNotify</div>
+                    <p class="en">Tool for sending notifications or messages to multiple servers simultaneously. Simplifies the process of updating multiple systems with preset or custom messages.</p>
+                    <p class="pl hidden">Narzędzie do wysyłania powiadomień lub wiadomości na wiele serwerów jednocześnie. Upraszcza proces aktualizacji wielu systemów za pomocą predefiniowanych lub niestandardowych wiadomości.</p>
+                    <div class="tags">
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <a href="https://github.com/KryhaX/ServerNotify" class="link" target="_blank">
+                        <span class="en">View on GitHub</span>
+                        <span class="pl hidden">Zobacz na GitHub</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">SwapMaster</div>
+                    <p class="en">A tool to update server messages with user-defined presets and values. Streamlines server configuration management.</p>
+                    <p class="pl hidden">Narzędzie do aktualizacji wiadomości serwera z predefiniowanymi wartościami. Usprawnia zarządzanie konfiguracją serwera.</p>
+                    <div class="tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">DevOps</span>
+                    </div>
+                    <a href="https://github.com/KryhaX/SwapMaster" class="link" target="_blank">
+                        <span class="en">View on GitHub</span>
+                        <span class="pl hidden">Zobacz na GitHub</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title">game_database</div>
+                    <p class="en">Database management system for game data. Built with Python, showcasing backend development and data handling skills.</p>
+                    <p class="pl hidden">System zarządzania bazą danych dla danych gier. Zbudowany w Pythonie, prezentujący umiejętności w rozwoju backendu i obsłudze danych.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Database</span>
+                        <span class="tag">Backend</span>
+                    </div>
+                    <a href="https://github.com/KryhaX/game_database" class="link" target="_blank">
+                        <span class="en">View on GitHub</span>
+                        <span class="pl hidden">Zobacz na GitHub</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📹</div>
+                    <div class="card-title">videos</div>
+                    <p class="en">Video processing and management tool built with Python. Demonstrates multimedia handling capabilities.</p>
+                    <p class="pl hidden">Narzędzie do przetwarzania i zarządzania wideo zbudowane w Pythonie. Demonstracja możliwości obsługi multimediów.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Media Processing</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <a href="https://github.com/KryhaX/videos" class="link" target="_blank">
+                        <span class="en">View on GitHub</span>
+                        <span class="pl hidden">Zobacz na GitHub</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Certificates & Training</span>
+                <span class="pl hidden">Certyfikaty i Szkolenia</span>
+            </h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="cert-icon">☁️</div>
+                    <div class="cert-title">AWS Certified Cloud Practitioner</div>
+                    <div class="cert-issuer">Amazon Web Services (AWS)</div>
+                    <div class="cert-date">Issued Dec 2024 • Expires Dec 2027</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🐧</div>
+                    <div class="cert-title">LFS162: Introduction to DevOps and Site Reliability Engineering</div>
+                    <div class="cert-issuer">The Linux Foundation</div>
+                    <div class="cert-date">Issued Jun 2025</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🌐</div>
+                    <div class="cert-title">Networking Basics</div>
+                    <div class="cert-issuer">Cisco Networking Academy</div>
+                    <div class="cert-date">Issued Feb 2025</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">💬</div>
+                    <div class="cert-title">English for IT B2+ / GSE 59-75</div>
+                    <div class="cert-issuer">Cisco Networking Academy</div>
+                    <div class="cert-date">Issued Jan 2025</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">💬</div>
+                    <div class="cert-title">English for IT B1+ / GSE 43-58</div>
+                    <div class="cert-issuer">Cisco</div>
+                    <div class="cert-date">Issued Dec 2024</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">📱</div>
+                    <div class="cert-title">Intune (MDM / MAM) Microsoft Training Course</div>
+                    <div class="cert-issuer">Microsoft</div>
+                    <div class="cert-date">2025</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">☁️</div>
+                    <div class="cert-title">Master Microsoft Azure Fundamentals: AZ-900 Exam Prep 2025</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2025</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">⚙️</div>
+                    <div class="cert-title">All-in-One Terraform Course</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2024</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🚀</div>
+                    <div class="cert-title">NGINX Fundamentals: High Performance Servers</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2024</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🔧</div>
+                    <div class="cert-title">Begin Your DevOps Career As a Newbie</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2024</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-title">Advanced Django Framework</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2024</div>
+                </div>
+
+                <div class="card">
+                    <div class="cert-icon">🗄️</div>
+                    <div class="cert-title">MySQL Database Creation and Management</div>
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-date">2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cv-download">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Download CV</span>
+                <span class="pl hidden">Pobierz CV</span>
+            </h2>
+            <div class="cv-grid">
+                <div class="cv-card">
+                    <div class="cv-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>
+                        <span class="en">Junior DevOps Engineer</span>
+                        <span class="pl hidden">Junior Inżynier DevOps</span>
+                    </h3>
+                    <p class="en">English version - DevOps focused</p>
+                    <p class="pl hidden">Wersja angielska - skupiona na DevOps</p>
+                    <a href="#" class="btn btn-primary" onclick="alert('Place your Junior DevOps CV PDF here')">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+
+                <div class="cv-card">
+                    <div class="cv-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>
+                        <span class="en">Senior Support Engineer</span>
+                        <span class="pl hidden">Starszy Inżynier Wsparcia</span>
+                    </h3>
+                    <p class="en">Polish version - Support focused</p>
+                    <p class="pl hidden">Wersja polska - skupiona na wsparciu</p>
+                    <a href="#" class="btn btn-primary" onclick="alert('Place your Senior Support CV PDF here')">
+                        <i class="fas fa-download"></i> 
+                        <span class="en">Download</span>
+                        <span class="pl hidden">Pobierz</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Get In Touch</span>
+                <span class="pl hidden">Skontaktuj się</span>
+            </h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <a href="mailto:wierciak.krystian@gmail.com">wierciak.krystian@gmail.com</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                    <h3>LinkedIn</h3>
+                    <a href="https://linkedin.com/in/krystian-wierciak-905019209/" target="_blank">Krystian Wierciak</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fab fa-github"></i></div>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/KryhaX" target="_blank">@KryhaX</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <h3>
+                        <span class="en">Phone</span>
+                        <span class="pl hidden">Telefon</span>
+                    </h3>
+                    <a href="tel:+48536736713">+48 536 736 713</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Krystian Wierciak. 
+                <span class="en">All rights reserved.</span>
+                <span class="pl hidden">Wszelkie prawa zastrzeżone.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'pl' : 'en';
+            const enElements = document.querySelectorAll('.en');
+            const plElements = document.querySelectorAll('.pl');
+            
+            if (currentLang === 'pl') {
+                enElements.forEach(el => el.classList.add('hidden'));
+                plElements.forEach(el => el.classList.remove('hidden'));
+            } else {
+                plElements.forEach(el => el.classList.add('hidden'));
+                enElements.forEach(el => el.classList.remove('hidden'));
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+                    
